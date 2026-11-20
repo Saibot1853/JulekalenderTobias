@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f4f6f3;
+  color: #18352b;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  color: white;
+  background: #123c32;
+}
+
+header a {
+  color: white;
+}
+
+main {
+  width: min(1100px, 92%);
+  margin: 32px auto;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.card,
+.panel {
+  padding: 20px;
+  border: 1px solid #d9e1db;
+  border-radius: 12px;
+  background: white;
+}
+
+.number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 14px 10px;
+  border-bottom: 1px solid #e3e8e4;
+  vertical-align: top;
+}
+
+th {
+  color: #52685e;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.pending {
+  color: #8a5b00;
+}
+
+.correct {
+  color: #187344;
+}
+
+.wrong {
+  color: #a52732;
+}
+
+button {
+  margin: 3px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  color: white;
+  background: #187344;
+  cursor: pointer;
+}
+
+button.reject {
+  background: #a52732;
+}
+
+.winner-button {
+  padding: 12px 18px;
+  background: #a52732;
+}
+
+@media (max-width: 650px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column;
+  }
+}
