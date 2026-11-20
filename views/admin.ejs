@@ -1,105 +1,13 @@
-<!DOCTYPE html>
-<html lang="no">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Administrasjon | Julekalender</title>
-  <link rel="stylesheet" href="/admin.css">
-</head>
+<%- include("./partials/head.ejs") %>
+
+
 <body>
-  <header>
-    <h1>Admin · Julekalender</h1>
-    <a href="/">← Til kalenderen</a>
-  </header>
+    <%- include("./partials/nav.ejs") %>
+    
 
-  <main>
-    <h2>Oversikt</h2>
 
-    <section class="stats" aria-label="Aktivitetsoversikt">
-      <div class="card">
-        <div>Innsendte svar</div>
-        <div class="number"><%= answers.length %></div>
-      </div>
 
-      <div class="card">
-        <div>Venter på vurdering</div>
-        <div class="number">
-          <%= answers.filter(a => a.status === "pending").length %>
-        </div>
-      </div>
+ijdhad
 
-      <div class="card">
-        <div>Riktige svar</div>
-        <div class="number">
-          <%= answers.filter(a => a.status === "correct").length %>
-        </div>
-      </div>
-    </section>
 
-    <section class="panel">
-      <h2>Innsendte svar</h2>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Luke</th>
-              <th>Deltaker</th>
-              <th>Svar</th>
-              <th>Status</th>
-              <th>Vurder</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% answers.forEach(answer => { %>
-              <tr>
-                <td><%= answer.door %></td>
-                <td><%= answer.participantName %></td>
-                <td><%= answer.text %></td>
-                <td class="status <%= answer.status %>">
-                  <%= answer.status === "correct" ? "Riktig" :
-                      answer.status === "wrong" ? "Galt" : "Venter" %>
-                </td>
-                <td>
-                  <form action="/admin/answers/<%= answer._id %>/correct"
-                        method="POST" style="display: inline">
-                    <button type="submit">Riktig</button>
-                  </form>
-
-                  <form action="/admin/answers/<%= answer._id %>/wrong"
-                        method="POST" style="display: inline">
-                    <button class="reject" type="submit">Galt</button>
-                  </form>
-                </td>
-              </tr>
-            <% }) %>
-
-            <% if (answers.length === 0) { %>
-              <tr>
-                <td colspan="5">Ingen svar er sendt inn ennå.</td>
-              </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel" style="margin-top: 20px">
-      <h2>Trekk en vinner</h2>
-      <p>Velg en tilfeldig deltaker blant dem som har fått riktig svar.</p>
-
-      <form action="/admin/winner/draw" method="POST">
-        <button class="winner-button" type="submit">Trekk vinner</button>
-      </form>
-
-      <% if (winner) { %>
-        <p>
-          Vinner: <strong><%= winner.participantName %></strong>
-          · Luke <%= winner.door %>
-        </p>
-      <% } %>
-    </section>
-  </main>
 </body>
-</html>
