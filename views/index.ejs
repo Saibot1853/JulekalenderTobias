@@ -1,50 +1,32 @@
-<html lang="en">
+<html lang="no">
 <%- include("./partials/head.ejs") %>
 <body>
-    <%- include("./partials/nav.ejs") %>
+  <%- include("./partials/nav.ejs") %>
+  <h1>Julekalender</h1>
+  <div id="kalenderinfo"></div>
 
-    
-    <h1>Julekalender</h1>'
-    <div id="wrapper">
-        <div id="boxtop">
-            
-        
-        </div>
-        <div id="kalender">
-            <ul>
-<li><button class="buttonrutte"><span class="skall">1</span></button></li>
-<li><button class="buttonrutte"><span class="skall">2</span></button></li>
-<li><button class="buttonrutte"><span class="skall">3</span></button></li>
-<li><button class="buttonrutte"><span class="skall">4</span></button></li>
-<li><button class="buttonrutte"><span class="skall">5</span></button></li>
-<li><button class="buttonrutte"><span class="skall">6</span></button></li>
-<li><button class="buttonrutte"><span class="skall">7</span></button></li>
-<li><button class="buttonrutte"><span class="skall">8</span></button></li>
-<li><button class="buttonrutte"><span class="skall">9</span></button></li>
-<li><button class="buttonrutte"><span class="skall">10</span></button></li>
-<li><button class="buttonrutte"><span class="skall">11</span></button></li>
-<li><button class="buttonrutte"><span class="skall">12</span></button></li>
-<li><button class="buttonrutte"><span class="skall">13</span></button></li>
-<li><button class="buttonrutte"><span class="skall">14</span></button></li>
-<li><button class="buttonrutte"><span class="skall">15</span></button></li>
-<li><button class="buttonrutte"><span class="skall">16</span></button></li>
-<li><button class="buttonrutte"><span class="skall">17</span></button></li>
-<li><button class="buttonrutte"><span class="skall">18</span></button></li>
-<li><button class="buttonrutte"><span class="skall">19</span></button></li>
-<li><button class="buttonrutte"><span class="skall">20</span></button></li>
-<li><button class="buttonrutte"><span class="skall">21</span></button></li>
-<li><button class="buttonrutte"><span class="skall">22</span></button></li>
-<li><button class="buttonrutte"><span class="skall">23</span></button></li>
-<li><button class="buttonrutte"><span class="skall">24</span></button></li>
-
-
-            </ul>
-
-        </div>
+  <div id="wrapper">
+    <div id="boxtop"></div>
+    <div id="kalender">
+      <ul id="kalenderluker"></ul>
     </div>
- <dialog id="popup">
-        <div id="popupinnhold"></div>
-        <button type="button" id="lukk">Lukk</button>
-    </dialog>
+  </div>
+
+  <dialog id="popup">
+    <div id="popupinnhold"></div>
+    <button type="button" id="lukk">Lukk</button>
+  </dialog>
+
+  <% const kalenderData = {
+    questions: questions.map(sporsmal => ({
+      id: sporsmal.id,
+      question: sporsmal.question,
+      options: sporsmal.options || [],
+      video_url: sporsmal.video_url || null
+    })),
+    participantName: participant ? participant.name : null,
+    submitted
+  }; %>
+  <script id="kalenderdata" type="application/json"><%- JSON.stringify(kalenderData).replace(/</g, "\\u003c") %></script>
 </body>
 </html>

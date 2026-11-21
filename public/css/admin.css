@@ -4,63 +4,83 @@
 
 body {
   margin: 0;
-  background: #f4f6f3;
   color: #18352b;
+  background: #18352b;
   font-family: Arial, sans-serif;
+  line-height: 24px;
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 5%;
-  color: white;
-  background: #123c32;
-}
-
-header a {
-  color: white;
-}
-
-main {
-  width: min(1100px, 92%);
-  margin: 32px auto;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 24px 0;
-}
-
-.card,
-.panel {
-  padding: 20px;
-  border: 1px solid #d9e1db;
-  border-radius: 12px;
+  padding: 14px 24px;
+  color: black;
   background: white;
 }
 
-.number {
-  font-size: 2rem;
+header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+header a {
+  color: #fffdf7;
+}
+
+main {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 16px;
+}
+
+h2 {
+  margin: 0 0 14px;
+}
+
+.statistikk {
+  display: flex;
+  margin: 20px 0 28px;
+  border: 1px solid #d5cdbb;
+  background: #fffdf7;
+}
+
+.kort {
+  flex: 1;
+  padding: 14px 18px;
+  border-right: 1px solid #d5cdbb;
+}
+
+.kort:last-child {
+  border-right: 0;
+}
+
+.tall {
+  font-size: 28px;
   font-weight: bold;
 }
 
-.table-wrap {
+.panel {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #d5cdbb;
+  background: #fffdf7;
+}
+
+.tabellramme {
   overflow-x: auto;
 }
 
 table {
-  width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   text-align: left;
 }
 
 th,
 td {
-  padding: 14px 10px;
-  border-bottom: 1px solid #e3e8e4;
+  padding: 11px 9px;
+  border-bottom: 1px solid #e4dece;
   vertical-align: top;
 }
 
@@ -72,45 +92,64 @@ th {
   font-weight: bold;
 }
 
-.pending {
+.venter {
   color: #8a5b00;
 }
 
-.correct {
+.riktig {
   color: #187344;
 }
 
-.wrong {
+.galt {
   color: #a52732;
 }
 
 button {
-  margin: 3px;
-  padding: 8px 12px;
+  margin: 2px;
+  padding: 8px 11px;
   border: 0;
-  border-radius: 6px;
   color: white;
   background: #187344;
+  font: inherit;
   cursor: pointer;
 }
 
-button.reject {
-  background: #a52732;
+button:hover {
+  filter: brightness(90%);
 }
 
-.winner-button {
-  padding: 12px 18px;
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #d6ad00;
+  outline-offset: 2px;
+}
+
+.knapp-galt,
+.vinnerknapp {
   background: #a52732;
 }
 
 @media (max-width: 650px) {
-  .stats {
-    grid-template-columns: 1fr;
-  }
-
   header {
     align-items: flex-start;
-    gap: 10px;
     flex-direction: column;
+    gap: 6px;
+  }
+
+  .statistikk {
+    flex-direction: column;
+  }
+
+  .kort {
+    border-right: 0;
+    border-bottom: 1px solid #d5cdbb;
+  }
+
+  .kort:last-child {
+    border-bottom: 0;
+  }
+
+  .panel {
+    padding: 12px;
   }
 }

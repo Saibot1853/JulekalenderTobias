@@ -1,13 +1,92 @@
 <%- include("./partials/head.ejs") %>
 
-
 <body>
-    <%- include("./partials/nav.ejs") %>
-    
+  <%- include("./partials/nav.ejs") %>
 
+  <header>
+    <h1>Administrasjon av julekalenderen</h1>
+  </header>
 
+  <main>
+    <h2>Oversikt</h2>
 
-ijdhad
+    <section class="statistikk" aria-label="Oversikt">
+      <div class="kort">
+        <div>Spørsmål</div>
+        <div class="tall"><%= questions.length %></div>
+      </div>
+      <div class="kort">
+        <div>Innsendte svar</div>
+        <div class="tall"><%= answers.length %></div>
+      </div>
+      <div class="kort">
+        <div>Vinnere</div>
+        <div class="tall"><%= answers.filter(svar => svar.winner).length %></div>
+      </div>
+    </section>
 
+    <section class="panel">
+      <h2>Innsendte svar</h2>
+      <div class="tabellramme">
+        <table>
+          <thead>
+            <tr>
+              <th>Luke</th>
+              <th>Navn</th>
+              <th>E-post</th>
+              <th>Svar</th>
+              <th>Status</th>
+              <th>Vurder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% answers.forEach(svar => { %>
+              <tr>
+                <td><%= svar.questionId %></td>
+                <td><%= svar.participantName %></td>
+                <td><%= svar.participantEmail %></td>
+                <td><%= svar.answer %></td>
+                <td class="status">
+                  <%= svar.status === "correct" ? "Riktig" : svar.status === "wrong" ? "Galt" : "Venter" %>
+                  <% if (svar.winner) { %> – Vinner<% } %>
+                </td>
+                <td>
+                  <form action="/admin/answers/<%= svar._id %>/status" method="POST" style="display: inline">
+                    <button type="submit" name="status" value="correct">Riktig</button>
+                    <button class="knapp-galt" type="submit" name="status" value="wrong">Galt</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
 
+            <% if (answers.length === 0) { %>
+              <tr><td colspan="6">Ingen svar er sendt inn ennå.</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Trekk en vinner</h2>
+      <% if (noCorrectAnswers) { %>
+        <p>Ingen riktige svar å trekke fra ennå.</p>
+      <% } %>
+
+      <% questions.forEach(sporsmal => { %>
+        <% const vinner = answers.find(svar => svar.questionId === sporsmal.id && svar.winner); %>
+        <p>
+          Luke <%= sporsmal.id %>:
+          <% if (vinner) { %>
+            <strong><%= vinner.participantName %></strong> (<%= vinner.participantEmail %>)
+          <% } else { %>
+            Ingen vinner trukket
+          <% } %>
+        </p>
+        <form action="/admin/winners/<%= sporsmal.id %>/draw" method="POST">
+          <button class="vinnerknapp" type="submit">Trekk vinner for luke <%= sporsmal.id %></button>
+        </form>
+      <% }) %>
+    </section>
+  </main>
 </body>

@@ -1,0 +1,18 @@
+Dette er en jule kalender med dagilge spørsmål
+Den har en admin side hvor man kan trekke en tilfeldig vinner
+du kan må ogsp sjekke om svarene er riktig eller ikke.
+Hver rute åpner seig på dagen man skal åpne den fra 1 sepmtember
+til 24 den kan man svare man på spørsmaålet også kan man trekke
+en vinner på admin panelet. Det er også en login side der
+må man loge in med en afk bruker men det kan let endres.
+For å nå admin panelet loger man in med gmail admin@afk.no.
+Man trenger express moongoose nodemon og ejs. For å sette opp 
+apen må man clone main også laste ned alle pakene. Man trenger 
+også og lage en .env fil der må man sette port til det man vil
+kjøre local hosten på helst 4000. Og du må legge in mongodb 
+lockal host coden din. For å få spørsmålene in må man først 
+skrive node seed.js også for å starte apen må man skrive
+nodemon app.js.
+
+
+
