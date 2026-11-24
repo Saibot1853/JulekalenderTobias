@@ -3,30 +3,75 @@
 <body>
   <%- include("./partials/nav.ejs") %>
   <h1>Julekalender</h1>
-  <div id="kalenderinfo"></div>
+
+  <div id="kalenderinfo">
+    <% if (participant) { %>
+      <p>Logget inn som <%= participant.name %></p>
+    <% } %>
+    <% if (submitted) { %>
+      <p role="status">Svaret er sendt inn.</p>
+    <% } %>
+  </div>
 
   <div id="wrapper">
     <div id="boxtop"></div>
     <div id="kalender">
-      <ul id="kalenderluker"></ul>
+      <ul id="kalenderluker">
+        <% for (let id = 1; id <= 24; id++) {
+          const sporsmal = questions.find(question => question.id === id);
+        %>
+          <li>
+            <button class="buttonrutte" type="button"
+              <% if (sporsmal) { %>
+                data-luke="<%= id %>"
+              <% } else { %>
+                disabled style="filter: grayscale(1); opacity: 0.5; cursor: not-allowed;"
+              <% } %>>
+              <span class="skall"><%= id %></span>
+            </button>
+          </li>
+        <% } %>
+      </ul>
     </div>
   </div>
 
   <dialog id="popup">
-    <div id="popupinnhold"></div>
+    <div id="popupinnhold">
+      <% questions.forEach(sporsmal => { %>
+        <div id="sporsmal-<%= sporsmal.id %>" hidden>
+          <h2><%= sporsmal.question %></h2>
+
+          <% if (sporsmal.video_url) { %>
+            <a href="<%= sporsmal.video_url %>" target="_blank" rel="noopener noreferrer">Åpne video</a>
+          <% } %>
+
+          <% if (!participant) { %>
+            <p><a href="/login">Logg inn for å svare</a></p>
+          <% } else { %>
+            <form action="/answers" method="POST">
+              <input type="hidden" name="questionId" value="<%= sporsmal.id %>">
+
+              <% if (sporsmal.options && sporsmal.options.length > 0) { %>
+                <p>Velg et svar:</p>
+                <% sporsmal.options.forEach(alternativ => { %>
+                  <label>
+                    <input type="radio" name="answer" value="<%= alternativ %>" required>
+                    <%= alternativ %>
+                  </label><br>
+                <% }); %>
+              <% } else { %>
+                <label>Skriv svaret ditt:
+                  <input type="text" name="answer" required>
+                </label>
+              <% } %>
+
+              <button type="submit">Send svar</button>
+            </form>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
     <button type="button" id="lukk">Lukk</button>
   </dialog>
-
-  <% const kalenderData = {
-    questions: questions.map(sporsmal => ({
-      id: sporsmal.id,
-      question: sporsmal.question,
-      options: sporsmal.options || [],
-      video_url: sporsmal.video_url || null
-    })),
-    participantName: participant ? participant.name : null,
-    submitted
-  }; %>
-  <script id="kalenderdata" type="application/json"><%- JSON.stringify(kalenderData).replace(/</g, "\\u003c") %></script>
 </body>
 </html>
